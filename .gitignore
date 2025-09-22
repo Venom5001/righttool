@@ -1,0 +1,31 @@
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+*.log
+
+# Next.js
+.next/
+out/
+.next/cache/
+
+# Env & local secrets (keep server keys out of Git)
+.env*
+!.env.example
+
+# Tooling / platform
+.vercel/
+.vscode/
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Tests / coverage
+coverage/
+
+# Prisma (only if you ever use SQLite locally)
+prisma/*.db
+prisma/*.db-journal

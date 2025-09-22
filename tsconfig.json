@@ -1,0 +1,35 @@
+{
+  "compilerOptions": {
+    "target": "ES2017",                        // ⬅️ enables Set/Map iteration without errors
+    "lib": ["DOM", "DOM.Iterable", "ES2017"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": false,
+    "noEmit": true,
+    "incremental": true,
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "plugins": [{ "name": "next" }],
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    }
+
+    /* If you ever keep target at ES5 instead, add this:
+    "downlevelIteration": true
+    */
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "**/*.js",
+    "**/*.cjs",
+    "**/*.mjs"
+  ],
+  "exclude": ["node_modules"]
+}

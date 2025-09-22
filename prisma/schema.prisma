@@ -1,0 +1,79 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Vehicle {
+  id           String        @id @default(cuid())
+  year         Int
+  make         String
+  model        String
+  engine       String
+  trim         String?
+  requirements Requirement[]
+}
+
+model Job {
+  id           String        @id @default(cuid())
+  slug         String        @unique
+  title        String
+  category     String
+  requirements Requirement[]
+}
+
+model Tool {
+  id           String         @id @default(cuid())
+  name         String
+  brand        String?
+  size         String?
+  drive        String?
+  spec         String?
+  price        Decimal?       @db.Decimal(10,2)
+  buyUrl       String?
+  requirements Requirement[]
+  toolLinks    ToolLink[]
+  userToolbox  UserToolbox[]
+}
+
+model Requirement {
+  id        String  @id @default(cuid())
+  vehicle   Vehicle @relation(fields: [vehicleId], references: [id])
+  vehicleId String
+  job       Job     @relation(fields: [jobId], references: [id])
+  jobId     String
+  tool      Tool    @relation(fields: [toolId], references: [id])
+  toolId    String
+  qty       Int     @default(1)
+  notes     String?
+}
+
+model ToolLink {
+  id      String @id @default(cuid())
+  tool    Tool   @relation(fields: [toolId], references: [id])
+  toolId  String
+  vendor  String
+  url     String
+}
+
+model UserToolbox {
+  id      String @id @default(cuid())
+  userId  String
+  tool    Tool   @relation(fields: [toolId], references: [id])
+  toolId  String
+
+  @@unique([userId, toolId], name: "userId_toolId")
+}
+
+model Subscription {
+  id          String   @id @default(cuid())
+  userEmail   String   @unique
+  stripeCusId String?
+  stripeSubId String?
+  status      String   @default("inactive")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
